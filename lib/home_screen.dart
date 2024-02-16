@@ -5,6 +5,25 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('hola'),
+      ),
+      body : ListView(
+        children: const [
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+          Text('hola con flutter'),
+        ]
+      )
+    );
   }
 }
