@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:practica3/theme/app_theme.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -10,26 +10,32 @@ class HomeScreen extends StatelessWidget {
         title: const Text('hola'),
       ),
       body : ListView(
-        children: const <Widget>[
+        children:<Widget>[
           ListTile(
-            title: Text("los yankees de new york se enfrentaran con un equipo en la ciudad"),
-            subtitle: Text('en junio '),
-            leading: Icon(Icons.casino),
-            trailing: Icon(Icons.arrow_circle_down),
+            title: Text(
+              "entradas", 
+              style: Apptheme.darkTheme.textTheme.headlineLarge,
+            ),
+            subtitle: Text('introduce valores ', style: Apptheme.darkTheme.textTheme.bodySmall),
+            leading: const Icon(Icons.power_input),
+            trailing: const Icon(Icons.arrow_circle_down),
           ),
           Divider(),
-          ListTile(
-            title: Text("los boletos se encuentran agotados "),
-            subtitle: Text('en tan solo 2 dias'),
-            leading: Icon(Icons.price_check_sharp),
-            trailing: Icon(Icons.arrow_circle_right_rounded),
+           ListTile (
+            title: Text("listeview.builder ", 
+            style: Apptheme.darkTheme.textTheme.headlineLarge,
+            ),
+            
+            subtitle: Text('lista de scroll', style: Apptheme.darkTheme.textTheme.bodySmall),
+            leading: const Icon(Icons.list),
+            trailing: const Icon(Icons.arrow_circle_right_rounded),
           ),
           Divider(),
            ListTile(
-            title: Text("los yankees de new york se enfrentaran con un equipo en la ciudad"),
-            subtitle: Text('en junio '),
-            leading: Icon(Icons.beach_access),
-            trailing: Icon(Icons.arrow_circle_right_rounded),
+            title: Text("notificaciones", style: Apptheme.darkTheme.textTheme.headlineLarge,),
+            subtitle: Text('mostrar notificaciones', style: Apptheme.darkTheme.textTheme.bodySmall,),
+            leading: const Icon(Icons.notification_add),
+            trailing: const Icon(Icons.arrow_circle_right_rounded),
           )
         ],
       )
