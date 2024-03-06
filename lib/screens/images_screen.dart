@@ -38,7 +38,7 @@ class _ImageScreenState extends State<ImagesScreen> {
             height: 350.0,
             width: 350.0,
             child: Image(
-              image: AssetImage('assets/img/hola.jpg')
+              image: AssetImage('assets/img/tich.png')
             ),
           ),
           Container(
