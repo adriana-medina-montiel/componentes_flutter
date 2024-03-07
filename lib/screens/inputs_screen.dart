@@ -13,6 +13,9 @@ class _InputScreenState extends State<InputScreen> {
   bool switchValue = false;
   double sliderValue = 0.0;
   int radioSelected = 0;
+  bool isChecked1 = false;
+  bool isChecked2 = false;
+  bool isChecked3 = false;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -29,6 +32,11 @@ class _InputScreenState extends State<InputScreen> {
             entradaSwitch(),
             entradaSlider(),
             entradaRadio(),
+            Text(
+              '¿que usas para correr tus apps?',
+              style: Apptheme.darkTheme.textTheme.headlineLarge,
+            ),
+            entradasCheck(),
             
             const ElevatedButton(onPressed: null, child: Text('guardar',))
               ],
@@ -78,9 +86,9 @@ class _InputScreenState extends State<InputScreen> {
         Slider(min:0.0,
          max:10,
          
-         activeColor: Apptheme.secondaryColor,
+         activeColor: const Color.fromARGB(248, 60, 54, 54),
          thumbColor: Apptheme.primaryColor,
-         inactiveColor: Apptheme.backColor,
+         inactiveColor: const Color.fromARGB(248, 66, 60, 60),
          value: sliderValue,
          divisions: 10,
          label: '${sliderValue.round()}',
@@ -137,6 +145,48 @@ class _InputScreenState extends State<InputScreen> {
         )
 
     ],
+    );
+  }
+  Row entradasCheck(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('Navegador',
+        style: Apptheme.darkTheme.textTheme.bodySmall,
+        ),
+        Transform.scale(
+          scale: 1.5,
+          child: Checkbox(value: isChecked1,onChanged: (value){
+            setState(() {
+              isChecked1 = value!;
+            });
+          })
+        ),
+        Text('Emuladorr',
+        style: Apptheme.darkTheme.textTheme.bodySmall,
+        ),
+        Transform.scale(
+          scale: 1.5,
+          child: Checkbox(value: isChecked2,onChanged: (value){
+            setState(() {
+              isChecked2 = value!;
+            });
+          })
+        ),
+
+        Text('Smatphone',
+        style: Apptheme.darkTheme.textTheme.bodySmall,
+        ),
+        Transform.scale(
+          scale: 1.5,
+          child: Checkbox(value: isChecked3,onChanged: (value){
+            setState(() {
+              isChecked3 = value!;
+            });
+          })
+        ),
+        
+      ],
     );
   }
 }

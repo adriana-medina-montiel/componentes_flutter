@@ -38,13 +38,13 @@ class _ImageScreenState extends State<ImagesScreen> {
             height: 350.0,
             width: 350.0,
             child: Image(
-              image: AssetImage('assets/img/tich.png')
+              image: AssetImage('assets/img/limp.jpg')
             ),
           ),
           Container(
               padding:const EdgeInsets.all(10),
               child: Text(
-                'Un gato saludando',
+                'Clean Pro',
                 style: Apptheme.darkTheme.textTheme.headlineMedium,
               ),
             )
