@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:practica3/screens/home_screen.dart';
+import 'package:practica3/screens/images_screen.dart';
+import 'package:practica3/screens/infinite_scroll_screen.dart';
+import 'package:practica3/screens/notifications_screen.dart';
 import 'package:practica3/theme/app_theme.dart';
 
 
@@ -16,6 +20,30 @@ class _InputScreenState extends State<InputScreen> {
   bool isChecked1 = false;
   bool isChecked2 = false;
   bool isChecked3 = false;
+  int indexNavigation = 0;
+
+  openScreen(int index, BuildContext context){
+    MaterialPageRoute ruta = MaterialPageRoute(builder: (context) => const HomeScreeen());
+    switch(index){
+      case 0 :
+      ruta = MaterialPageRoute(builder: (context) => const HomeScreeen());
+      break;
+      case 1 :
+      ruta = MaterialPageRoute(builder: (context) => const InfiniteScrollScreen());
+      case 2 :
+      ruta = MaterialPageRoute(builder: (context) => const HomeScreeen());
+      break;
+      case 3 :
+      ruta = MaterialPageRoute(builder: (context) => const NotifacationsScreen());
+      case 4:
+      ruta = MaterialPageRoute(builder: (context) => const ImagesScreen());
+    }
+    setState(() {
+      indexNavigation = index;
+      Navigator.push(context, ruta);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -43,9 +71,19 @@ class _InputScreenState extends State<InputScreen> {
             )
           
         ),
-        bottomNavigationBar: BottomNavigationBar( items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'inicio'),
-        BottomNavigationBarItem(icon: Icon(Icons.data_exploration), label: 'Datos')]),
+        bottomNavigationBar: BottomNavigationBar( 
+          currentIndex: indexNavigation,
+          backgroundColor: Apptheme.backColor,
+          unselectedItemColor: Apptheme.primaryColor,
+          selectedItemColor: const Color.fromARGB(255, 100, 98, 91),
+          onTap: (index) => openScreen(index, context),
+          items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'inicio'),
+        BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Lista'),
+        BottomNavigationBarItem(icon: Icon(Icons.notification_add), label: 'notificaciones'),
+        BottomNavigationBarItem(icon: Icon(Icons.image), label: 'Imagenes'),
+        BottomNavigationBarItem(icon: Icon(Icons.exit_to_app), label: 'salir'),]),
     );
+
   }
 
   TextField entradaNombre() {
@@ -119,7 +157,7 @@ class _InputScreenState extends State<InputScreen> {
               onChanged: (value){
                 setState(() {
                   radioSelected = value!;
-                print('seleccionado el boton radio: $radioSelected');
+                
                 });
               },
             ),
@@ -137,7 +175,7 @@ class _InputScreenState extends State<InputScreen> {
               onChanged: (value){
                 setState(() {
                   radioSelected = value!;
-                print('seleccionado el boton radio: $radioSelected');
+                
                 });
               },
             ),
@@ -152,7 +190,7 @@ class _InputScreenState extends State<InputScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text('Navegador',
-        style: Apptheme.darkTheme.textTheme.bodySmall,
+        style: Apptheme.darkTheme.textTheme.headlineSmall,
         ),
         Transform.scale(
           scale: 1.5,
@@ -163,7 +201,7 @@ class _InputScreenState extends State<InputScreen> {
           })
         ),
         Text('Emuladorr',
-        style: Apptheme.darkTheme.textTheme.bodySmall,
+        style: Apptheme.darkTheme.textTheme.headlineSmall,
         ),
         Transform.scale(
           scale: 1.5,
@@ -175,7 +213,7 @@ class _InputScreenState extends State<InputScreen> {
         ),
 
         Text('Smatphone',
-        style: Apptheme.darkTheme.textTheme.bodySmall,
+        style: Apptheme.darkTheme.textTheme.headlineSmall,
         ),
         Transform.scale(
           scale: 1.5,

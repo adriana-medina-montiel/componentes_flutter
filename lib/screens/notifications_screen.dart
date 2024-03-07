@@ -9,4 +9,5 @@ class NotifacationsScreen extends StatelessWidget {
       child: Text('ventana de notificaciones'),
     );
   }
+  
 }
