@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:practica3/screens/home_screen.dart';
+import 'package:practica3/screens/infinite_scroll_screen.dart';
+import 'package:practica3/screens/notifications_screen.dart';
 import 'package:practica3/theme/app_theme.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -10,6 +13,35 @@ class ImagesScreen extends StatefulWidget {
 }
 
 class _ImageScreenState extends State<ImagesScreen> {
+   bool switchValue = false;
+  double sliderValue = 0.0;
+  int radioSelected = 0;
+  bool isChecked1 = false;
+  bool isChecked2 = false;
+  bool isChecked3 = false;
+  int indexNavigation = 0;
+
+  openScreen(int index, BuildContext context){
+    MaterialPageRoute ruta = MaterialPageRoute(builder: (context) => const HomeScreeen());
+    switch(index){
+      case 0 :
+      ruta = MaterialPageRoute(builder: (context) => const HomeScreeen());
+      break;
+      case 1 :
+      ruta = MaterialPageRoute(builder: (context) => const InfiniteScrollScreen());
+      case 2 :
+      ruta = MaterialPageRoute(builder: (context) => const HomeScreeen());
+      break;
+      case 3 :
+      ruta = MaterialPageRoute(builder: (context) => const NotifacationsScreen());
+      case 4:
+      ruta = MaterialPageRoute(builder: (context) => const ImagesScreen());
+    }
+    setState(() {
+      indexNavigation = index;
+      Navigator.push(context, ruta);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold( appBar: AppBar( 
@@ -38,7 +70,7 @@ class _ImageScreenState extends State<ImagesScreen> {
             height: 350.0,
             width: 350.0,
             child: Image(
-              image: AssetImage('assets/img/limp.jpg')
+              image: AssetImage('assets/img/baño.jpeg')
             ),
           ),
           Container(
@@ -57,7 +89,7 @@ class _ImageScreenState extends State<ImagesScreen> {
     return SizedBox(
       height: 200.0,
       width: 100.0,
-      child: Image.network('https://png.pngtree.com/png-clipart/20190330/ourlarge/pngtree-cartoon-cow-black-and-white-hand-painted-elements-png-image_893878.jpg'),
+      child: Image.network('https://fotografias-neox.atresmedia.com/clipping/cmsimages02/2022/05/12/D7B029F9-EF15-4416-83FA-84AF6949274C/jujutsu-kaisen-0_98.jpg?crop=1429,804,x248,y0&width=1900&height=1069&optimize=high&format=webply'),
     );
 
   }
@@ -69,8 +101,10 @@ class _ImageScreenState extends State<ImagesScreen> {
         ),
         Center(child: FadeInImage.memoryNetwork(
            placeholder: kTransparentImage,
-           image: 'https://png.pngtree.com/png-clipart/20190330/ourlarge/pngtree-cartoon-cow-black-and-white-hand-painted-elements-png-image_893878.jpg'),),
+           image: 'https://fotografias-neox.atresmedia.com/clipping/cmsimages02/2022/05/12/D7B029F9-EF15-4416-83FA-84AF6949274C/jujutsu-kaisen-0_98.jpg?crop=1429,804,x248,y0&width=1900&height=1069&optimize=high&format=webply'),),
       ],
     );
   }
+
+  
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:practica3/models/data.dart';
+import 'package:practica3/screens/datas_screen.dart';
 import 'package:practica3/screens/home_screen.dart';
 import 'package:practica3/screens/images_screen.dart';
 import 'package:practica3/screens/infinite_scroll_screen.dart';
@@ -14,9 +17,10 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
+  String? nombre;
   bool switchValue = false;
   double sliderValue = 0.0;
-  int radioSelected = 0;
+  String? radioSelected;
   bool isChecked1 = false;
   bool isChecked2 = false;
   bool isChecked3 = false;
@@ -31,12 +35,13 @@ class _InputScreenState extends State<InputScreen> {
       case 1 :
       ruta = MaterialPageRoute(builder: (context) => const InfiniteScrollScreen());
       case 2 :
-      ruta = MaterialPageRoute(builder: (context) => const HomeScreeen());
+      ruta = MaterialPageRoute(builder: (context) => const ImagesScreen());
       break;
       case 3 :
       ruta = MaterialPageRoute(builder: (context) => const NotifacationsScreen());
-      case 4:
-      ruta = MaterialPageRoute(builder: (context) => const ImagesScreen());
+      case 4://compartimiento aplicable solo en celular
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      break;
     }
     setState(() {
       indexNavigation = index;
@@ -48,7 +53,7 @@ class _InputScreenState extends State<InputScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-       title: const Text('Entradas'),
+       title: const Text('Bienvenido'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -61,19 +66,24 @@ class _InputScreenState extends State<InputScreen> {
             entradaSlider(),
             entradaRadio(),
             Text(
-              '¿que usas para correr tus apps?',
-              style: Apptheme.darkTheme.textTheme.headlineLarge,
+              '¿que opinas de CleanPro?',
+              style: Apptheme.darkTheme.textTheme.headlineMedium,
             ),
             entradasCheck(),
-            
-            const ElevatedButton(onPressed: null, child: Text('guardar',))
+            ElevatedButton(
+              onPressed: () {
+                               Data data = Data(nomb: nombre!, gusto: switchValue, calif: sliderValue.round(), moviD: radioSelected!, nav: isChecked1, emul: isChecked2, phone: isChecked3);
+                               Navigator.push(context, MaterialPageRoute(builder: (context) => DatasScreen(datos: data,)));
+                            },
+                            child: const Text ('guardar'),
+              )
               ],
             )
           
         ),
         bottomNavigationBar: BottomNavigationBar( 
           currentIndex: indexNavigation,
-          backgroundColor: Apptheme.backColor,
+          backgroundColor: Color.fromARGB(248, 0, 0, 0),
           unselectedItemColor: Apptheme.primaryColor,
           selectedItemColor: const Color.fromARGB(255, 100, 98, 91),
           onTap: (index) => openScreen(index, context),
@@ -91,9 +101,10 @@ class _InputScreenState extends State<InputScreen> {
           style: Apptheme.darkTheme.textTheme.headlineMedium,
           decoration: InputDecoration(
             border:const UnderlineInputBorder(),
-            labelText: 'escribe tu nombre',
-            labelStyle: Apptheme.darkTheme.textTheme.headlineLarge,
+            labelText: 'Escribe tu nombre',
+            labelStyle: Apptheme.darkTheme.textTheme.headlineMedium,
             ),
+            onChanged: (text) => nombre = text,
         );
   }
 
@@ -101,8 +112,8 @@ class _InputScreenState extends State<InputScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Text('te gusta flutter',
-        style: Apptheme.darkTheme.textTheme.headlineLarge,),
+        Text('¿Eres parte de la universidad?',
+        style: Apptheme.darkTheme.textTheme.headlineMedium,),
         Switch(
           value: switchValue,
           onChanged: (value){
@@ -119,12 +130,12 @@ class _InputScreenState extends State<InputScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
-        Text('indica que tanto te gusta Flutter:',
-        style: Apptheme.darkTheme.textTheme.headlineLarge,),
+        Text('indica que tan satisfecho te encuentras con el servicio de limpieza:',
+        style: Apptheme.darkTheme.textTheme.headlineMedium,),
         Slider(min:0.0,
-         max:10,
+         max:20,
          
-         activeColor: const Color.fromARGB(248, 60, 54, 54),
+         activeColor: Color.fromARGB(248, 72, 180, 230),
          thumbColor: Apptheme.primaryColor,
          inactiveColor: const Color.fromARGB(248, 66, 60, 60),
          value: sliderValue,
@@ -142,17 +153,17 @@ class _InputScreenState extends State<InputScreen> {
   Column entradaRadio(){
     return Column(
       children: [
-        Text('¿que prefieres para desarrollo movil?',
-        style: Apptheme.darkTheme.textTheme.headlineLarge,
+        Text('¿Cual es el edificio que mas usas?',
+        style: Apptheme.darkTheme.textTheme.headlineMedium,
         ),
         ListTile(
-          title: Text('kotlin',
+          title: Text('biblioteca',
           style: Apptheme.darkTheme.textTheme.headlineSmall,
           ),
           leading: Transform.scale(
             scale: 1.5,
             child: Radio(
-              value:1,
+              value:'Edificio P',
               groupValue: radioSelected,
               onChanged: (value){
                 setState(() {
@@ -164,13 +175,13 @@ class _InputScreenState extends State<InputScreen> {
           ),
         ),
         ListTile(
-          title: Text('Flutter',
+          title: Text('Cafeteria',
           style: Apptheme.darkTheme.textTheme.headlineSmall,
           ),
           leading: Transform.scale(
             scale: 1.5,
             child: Radio(
-              value:2,
+              value:'bueno',
               groupValue: radioSelected,
               onChanged: (value){
                 setState(() {
@@ -189,7 +200,7 @@ class _InputScreenState extends State<InputScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text('Navegador',
+        Text('Regular',
         style: Apptheme.darkTheme.textTheme.headlineSmall,
         ),
         Transform.scale(
@@ -200,7 +211,7 @@ class _InputScreenState extends State<InputScreen> {
             });
           })
         ),
-        Text('Emuladorr',
+        Text('Malo',
         style: Apptheme.darkTheme.textTheme.headlineSmall,
         ),
         Transform.scale(
@@ -212,7 +223,7 @@ class _InputScreenState extends State<InputScreen> {
           })
         ),
 
-        Text('Smatphone',
+        Text('pasable',
         style: Apptheme.darkTheme.textTheme.headlineSmall,
         ),
         Transform.scale(

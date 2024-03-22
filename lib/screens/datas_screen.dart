@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:practica3/models/data.dart';
+import 'package:practica3/screens/buildinScreen.dart';
 import 'package:practica3/screens/home_screen.dart';
 import 'package:practica3/screens/images_screen.dart';
+import 'package:practica3/screens/infinite_scroll_screen.dart';
 import 'package:practica3/screens/notifications_screen.dart';
 import 'package:practica3/theme/app_theme.dart';
 
-class InfiniteScrollScreen extends StatefulWidget {
-  const InfiniteScrollScreen({super.key});
+class DatasScreen extends StatefulWidget {
+  final Data datos;
+  const DatasScreen({super.key, required this.datos});
 
   @override
-  State<InfiniteScrollScreen> createState() => _InfiniteScrollScreenState();
+  State<DatasScreen> createState() => _DatasScreenState();
 }
 
-class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
+class _DatasScreenState extends State<DatasScreen> {
    bool switchValue = false;
   double sliderValue = 0.0;
   int radioSelected = 0;
@@ -47,28 +51,42 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Scroll'),
+        title: const Text('Datos'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment : MainAxisAlignment.spaceEvenly,
-          children: [
-           
-            entradaNombre(),
-            entradaSwitch(),
-            entradaSlider(),
-            entradaRadio(),
-            // Text(
-            //   '¿que usas para correr tus apps?',
-            //   style: Apptheme.darkTheme.textTheme.headlineLarge,
-            // ),
-            entradasCheck(),
+      body : ListView(
+        children: [
+          ListTile(
+              title: Text('nombre:',
+              style: Apptheme.darkTheme.textTheme.headlineMedium,
+              ),
+              subtitle: Text(
+                widget.datos.nombre!,
+                style: Apptheme.darkTheme.textTheme.headlineLarge,
+              ),
+          ),
+          const Divider(),
+          ListTile(
             
-            //const ElevatedButton(onPressed: null, child: Text('guardar',))
-              ],
-            )
+            title: Text('Bienvenido ${widget.datos.nombre}',
+            style: Apptheme.darkTheme.textTheme.headlineLarge,
+             textAlign: TextAlign.center
+            
+            ),
+            subtitle: Text(
+              "",
+              style: Apptheme.darkTheme.textTheme.headlineLarge,
+
+            ),
+            trailing: ElevatedButton(
+              onPressed: () {
+                               Navigator.push(context, MaterialPageRoute(builder: (context) => BuildinScreen()));
+              },
+              child: Text('Entrar'),
+            ),
+            
+          ),
           
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar( 
           currentIndex: indexNavigation,
@@ -85,15 +103,16 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
   }
   TextField entradaNombre() {
     return TextField(
-        
         );
   }
 
   Row entradaSwitch(){
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-      
+        Text('Si, le gusta flutter',
+        style: Apptheme.darkTheme.textTheme.headlineLarge,),
+        
       ],
     );
   }
@@ -102,14 +121,19 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
-      
+         Text('a el le gusta flutter un 10%',
+         style: Apptheme.darkTheme.textTheme.headlineLarge,),
+       
       ],
     );
   }
   Column entradaRadio(){
     return Column(
       children: [
-     
+         Text('¿el prefiere Kotlin para desarrollo movil',
+        style: Apptheme.darkTheme.textTheme.headlineLarge,
+        ),
+       
     ],
     );
   }
@@ -117,8 +141,13 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+         Text('El usa para emular el navegador',
+        style: Apptheme.darkTheme.textTheme.headlineLarge,
+         ),
+        
         
       ],
     );
   }
 }
+ 

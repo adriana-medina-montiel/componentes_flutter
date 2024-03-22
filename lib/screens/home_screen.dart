@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:practica3/screens/images_screen.dart';
 import 'package:practica3/screens/infinite_scroll_screen.dart';
 import 'package:practica3/screens/inputs_screen.dart';
@@ -43,7 +44,7 @@ class HomeScreeen extends StatelessWidget {
             title: Text('Listview.builder',
             style: Apptheme.darkTheme.textTheme.headlineLarge,
             ),
-            subtitle: Text('Lista con scroll infinito',
+            subtitle: Text('Sobre nosotros',
             style: Apptheme.darkTheme.textTheme.bodySmall,
             ),
             leading: IconTheme(
@@ -86,10 +87,10 @@ class HomeScreeen extends StatelessWidget {
           ),
           const Divider(),
                    ListTile(
-            title: Text('Imagenes',
+            title: Text('Clean Pro',
             style: Apptheme.darkTheme.textTheme.headlineLarge,
             ),
-            subtitle: Text('Mostrar unas fotos bonitas',
+            subtitle: Text('que es clean pro',
             style: Apptheme.darkTheme.textTheme.bodySmall,
             ),
             leading: IconTheme(
@@ -107,6 +108,8 @@ class HomeScreeen extends StatelessWidget {
               Navigator.push(context, ruta1);
             },
           ),
+          const Divider(),
+      
         ],
       ),
     );
